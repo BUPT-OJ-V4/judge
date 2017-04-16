@@ -235,9 +235,10 @@ class Judge(object):
         Attempts to connect to the handler server specified in command line.
         """
         nsq.Reader(message_handler=self.start_judge,
-                   nsqd_tcp_addresses=[self.url],
+                   lookupd_http_addresses=[self.url],
                    topic='judge', channel=self.key,
                    lookupd_poll_interval=13)
+        print "start listening host: ", self.url
         nsq.run()
 
 

@@ -96,8 +96,7 @@ class PacketManager(object):
 
     def grading_end_packet(self, current_submission):
         logger.info('End grading: %d', current_submission)
-        self.fallback = 4
-        self._send_packet({'name': 'grading-end',
+        self._send_packet({'position': 'end',
                            'submission-id': current_submission})
 
     def current_submission_packet(self, current_submission):

@@ -87,8 +87,8 @@ class StandardGrader(BaseGrader):
             # Checkers might crash if any data is None, so force at least empty string
             # standard judge, wait for sp update
         from dmoj.checkers import standard
-        print "sub output: ", result.proc_output
-        print "std output: ", case.output_data()
+        # print "sub output: ", result.proc_output
+        # print "std output: ", case.output_data()
         return standard.check(result.proc_output or '', case.output_data() or '')
                                    
 

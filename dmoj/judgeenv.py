@@ -40,7 +40,7 @@ def load_env(cli=False):  # pragma: no cover
         _parser.add_argument('-u', '--server-url', default='http://127.0.0.1:4151/pub?topic=submission',
                              help='Server Host address to listen for judge API')
         _parser.add_argument('-p', '--problem-dir', default=os.path.join(BASE_DIR, 'problemdata'))
-        _parser.add_argument('-n', '--nsq-url', default='127.0.0.1:4150')
+        _parser.add_argument('-n', '--nsq-url', default='http://127.0.0.1:4161')
 
     _parser.add_argument('-c', '--config', type=str, default=None, required=True,
                          help='file to load judge configurations from')
