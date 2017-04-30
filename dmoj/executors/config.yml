@@ -1,22 +1,3 @@
-Auto-configuring [4mBASH[0m:   [1m[31mFailed self-test[0m
-  Attempted:
-    bash: /bin/bash
-  Errors:
-    Got unexpected stdout output:
-    
-Auto-configuring [4mBF[0m:     [1m[32mUsing /usr/bin/gcc[0m
-Auto-configuring [4mC[0m:      [1m[32mUsing /usr/bin/gcc[0m
-Auto-configuring [4mCPP03[0m:  [1m[32mUsing /usr/bin/g++[0m
-Auto-configuring [4mCPP11[0m:  [1m[32mUsing /usr/bin/g++-5[0m
-Auto-configuring [4mCPP14[0m:  [1m[32mUsing /usr/bin/g++-5[0m
-Auto-configuring [4mJAVA8[0m:  [1m[32mUsing /usr/lib/jvm/java-8-openjdk-amd64/bin/java[0m
-Auto-configuring [4mPERL[0m:   [1m[32mUsing /usr/bin/perl[0m
-Auto-configuring [4mPY2[0m:    [1m[32mUsing /usr/bin/python2.7[0m
-Auto-configuring [4mPY3[0m:    [1m[32mUsing /usr/bin/python3.5[0m
-Auto-configuring [4mTCL[0m:    [1m[32mUsing /usr/bin/tclsh[0m
-Auto-configuring [4mTEXT[0m:   [1m[32mUsing /bin/cat[0m
-
-[1m[32mConfiguration result[0m:
 runtime:
   cat: /bin/cat
   g++: /usr/bin/g++
@@ -28,4 +9,3 @@ runtime:
   perl: /usr/bin/perl
   python: /usr/bin/python2.7
   python3: /usr/bin/python3.5
-  tclsh: /usr/bin/tclsh

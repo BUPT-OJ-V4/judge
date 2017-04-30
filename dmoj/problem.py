@@ -12,6 +12,7 @@ from dmoj.config import InvalidInitException, ConfigNode
 from dmoj.generator import GeneratorManager
 from dmoj.judgeenv import get_problem_root, env
 from dmoj.utils.module import load_module_from_file
+import redis
 import requests
 
 
@@ -87,12 +88,18 @@ class ProblemDataManager(dict):
 
     def _get_file(self, p_dir, f):
         key = os.path.join(p_dir, f['filename'])
+        url = env['data_url'] + f['path']
+        url = url.strip().strip('\n')
+        print '-----------------url------------------------'
+        print url
+        print "get-----------------data--------------"
+        print requests.get(url).content
+
         if os.path.exists(key): 
             with open(key, 'rb') as fp:
                 self.data[key] = fp.read()
         else:
-            url = env['server_url'] + f['path']
-            print 'url: ', url[0]
+            url = env['data_url'] + f['path']
             url = url.strip().strip('\n')
             content = requests.get(url).content
             with open(key, 'wb') as fp:

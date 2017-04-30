@@ -41,6 +41,7 @@ def load_env(cli=False):  # pragma: no cover
                              help='Server Host address to listen for judge API')
         _parser.add_argument('-p', '--problem-dir', default=os.path.join(BASE_DIR, 'problemdata'))
         _parser.add_argument('-n', '--nsq-url', default='http://127.0.0.1:4161')
+        _parser.add_argument('-D', '--data-url', default='http://127.0.0.1')
 
     _parser.add_argument('-c', '--config', type=str, default=None, required=True,
                          help='file to load judge configurations from')
@@ -60,6 +61,7 @@ def load_env(cli=False):  # pragma: no cover
     env['judge_key'] = judge_key
     env['problem_data_dir'] = problem_data_dir
     env['nsq_url'] = nsq_url
+    env['data_url'] = _args.data_url
     env['log_file'] = log_file
     if not os.path.exists(problem_data_dir):
         os.mkdir(problem_data_dir)

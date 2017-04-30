@@ -99,9 +99,12 @@ class Judge(object):
             # cases are indexed at 1
             case_number = 1
             try:
+                print "start grade cases========================="
                 for result in self.grade_cases(grader, problem.cases):
+                    print "=====================grade cases ", case_number
                     codes = result.readable_codes()
                     # here be cancer
+                    print result.result_flag, result.AC
                     is_sc = (result.result_flag & Result.SC)
                     colored_codes = map(lambda x: '#ansi[%s](%s|bold)' % ('--' if x == 'SC' else x,
                                                                           Result.COLORS_BYID[x]), codes)
@@ -155,7 +158,6 @@ class Judge(object):
             grader = grader_class(self, problem, language, source)
         except CompileError as ce:
             print ansi_style('#ansi[Failed compiling submission!](red|bold)')
-            print ce.message,  # don't print extra newline
             grader = None
         except:  # if custom grader failed to initialize, report it to the site
             return self.internal_error()

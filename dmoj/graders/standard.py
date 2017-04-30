@@ -139,13 +139,10 @@ class StandardGrader(BaseGrader):
         from dmoj.utils import ansi
 
         # If the executor requires compilation, compile and send any errors/warnings to the site
-        print "exe binary"
-        print self.language, self.problem.id
         print self.source
         try:
             # Fetch an appropriate executor for the language
             binary = executors[self.language].Executor(str(self.problem.id), self.source)
-            print "get binary"
         except CompileError as compilation_error:
             error = compilation_error.args[0]
             error = error.decode('mbcs') if os.name == 'nt' and isinstance(error, str) else error
