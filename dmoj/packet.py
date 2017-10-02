@@ -39,12 +39,8 @@ class PacketManager(object):
 
         try:
             packet['key'] = self.key
-            print "================post to:", self.url, "============"
             resp = requests.post(self.url.strip(), data=json.dumps(packet)) 
-            print "receive resp"
-            print type(json.dumps(packet))
             res = resp.content
-            print type(res), res
             return res
         except Exception as ex:
             print ex
@@ -74,7 +70,7 @@ class PacketManager(object):
         self._send_packet({'name': 'compile-error',
                            'status': 'CE',
                            'submission-id': current_submission,
-                           'log': log})
+                           'compile-message': log})
 
     def compile_message_packet(self, log, current_submission):
         logger.info('Compile message: %d', current_submission)

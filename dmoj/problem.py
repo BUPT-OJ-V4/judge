@@ -56,61 +56,45 @@ class Problem(object):
     def _resolve_testcases(self, cfg):
         cases = []
         for case_config in cfg:
-            conf = {
-                    'in': case_config['in']['filename'],
-                    'out': case_config['out']['filename'],
-                    'position': case_config['position'],
-                    }
-            cases.append(TestCase(conf, self))
+            cases.append(TestCase(case_config, self))
         return cases
 
 
 class ProblemDataManager(dict):
 
+    data = {}
+
     def __init__(self, problem_id, problem_data, **kwargs):
         super(ProblemDataManager, self).__init__(**kwargs)
         self.problem_id = problem_id
         self.archive = None
-        self.data = {}
 
         print "initial problem_data: ", problem_data
         try:
             for f in problem_data:
                 i = f['in']
                 o = f['out']
-                p_dir = get_problem_root(self.problem_id)
-                self._get_file(p_dir, i)
-                self._get_file(p_dir, o)
+                # p_dir = get_problem_root(self.problem_id)
+                self._get_file(i)
+                self._get_file(o)
 
         except Exception as ex:
             print "error", ex
-            
 
-    def _get_file(self, p_dir, f):
-        key = os.path.join(p_dir, f['filename'])
-        url = env['data_url'] + f['path']
-        url = url.strip().strip('\n')
-        print '-----------------url------------------------'
-        print url
-        print "get-----------------data--------------"
-        print requests.get(url).content
+    def _get_file(self, key):
+        # key = f['filename']
+        # url = f['path']
 
-        if os.path.exists(key): 
-            with open(key, 'rb') as fp:
-                self.data[key] = fp.read()
-        else:
-            url = env['data_url'] + f['path']
-            url = url.strip().strip('\n')
-            content = requests.get(url).content
-            with open(key, 'wb') as fp:
-                fp.write(content)
-            self.data[key] = content
+        if key in self.data:
+            return
 
+        with open(key, 'rb') as fp:
+            self.data[key] = fp.read()
 
     def __missing__(self, key):
         try:
-            local_path = os.path.join(get_problem_root(self.problem_id), key)
-            return self.data[local_path]
+            # local_path = os.path.join(get_problem_root(self.problem_id), key)
+            return self.data[key]
             # return open(), 'r').read()
         except IOError:
             raise KeyError('file "%s" could not be found' % key)

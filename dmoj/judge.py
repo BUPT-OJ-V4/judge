@@ -58,7 +58,6 @@ class Judge(object):
         self.process_type = 0
         self.packet_manager = packet.PacketManager(env['server_url'], env['key'])
         self.url = env['nsq_url']
-        self.key = env['judge_key']
 
         # self.begin_grading = partial(self.process_submission, TYPE_SUBMISSION, self._begin_grading)
         # self.custom_invocation = partial(self.process_submission, TYPE_INVOCATION, self._custom_invocation)
@@ -99,9 +98,7 @@ class Judge(object):
             # cases are indexed at 1
             case_number = 1
             try:
-                print "start grade cases========================="
                 for result in self.grade_cases(grader, problem.cases):
-                    print "=====================grade cases ", case_number
                     codes = result.readable_codes()
                     # here be cancer
                     print result.result_flag, result.AC
@@ -127,6 +124,8 @@ class Judge(object):
                 pass
             except Exception as ex:
                 self.internal_error()
+        else:
+            print "===================no binary======================================"
 
         print ansi_style('Done grading #ansi[%s](yellow)/#ansi[%s](green|bold).' % (problem_id, submission_id))
         # self._terminate_grading = False
@@ -226,9 +225,7 @@ class Judge(object):
             self.begin_grading(problem_id, language, source, time_limit,\
                                memory_limit, problem_data, judge_type)
         except Exception as ex:
-            print "error: ", ex
             self.packet_manager.internal_error_packet(str(ex), self.current_submission)
-        print "==================judge end================"
 
         return True
 
@@ -236,9 +233,10 @@ class Judge(object):
         """
         Attempts to connect to the handler server specified in command line.
         """
+        print "url: ", self.url
         nsq.Reader(message_handler=self.start_judge,
-                   lookupd_http_addresses=[self.url],
-                   topic='judge', channel=self.key,
+                   nsqd_tcp_addresses=[self.url],
+                   topic='judge', channel='async',
                    lookupd_poll_interval=13)
         print "start listening host: ", self.url
         nsq.run()
