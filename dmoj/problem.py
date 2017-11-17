@@ -69,7 +69,6 @@ class ProblemDataManager(dict):
         self.problem_id = problem_id
         self.archive = None
 
-        print "initial problem_data: ", problem_data
         try:
             for f in problem_data:
                 i = f['in']

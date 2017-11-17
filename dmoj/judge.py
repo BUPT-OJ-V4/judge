@@ -222,6 +222,7 @@ class Judge(object):
             memory_limit = int(params['memory_limit'])
             problem_data = params['problem_data']
             judge_type = params.get('judge_type', 'ICPC')
+            self.packet_manager.set_submission_type(params.get('submission_type', 'contest'))
             self.begin_grading(problem_id, language, source, time_limit,\
                                memory_limit, problem_data, judge_type)
         except Exception as ex:
