@@ -119,7 +119,7 @@ class StandardGrader(BaseGrader):
     def _interact_with_process(self, case, result, input):
         process = self._current_proc
         try:
-            result.proc_output, error = process.safe_communicate(input, outlimit=100000,
+            result.proc_output, error = process.safe_communicate(input, outlimit=10000000,
                                                                  errlimit=1048576)
         except OutputLimitExceeded as ole:
             stream, result.proc_output, error = ole.args
